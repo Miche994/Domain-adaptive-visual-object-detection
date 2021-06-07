@@ -1,0 +1,1 @@
+--content_dir input/content --style <your path>/pytorch-AdaIN/input/style/290865447.jpg,<your path>/pytorch-AdaIN/input/style/520764090.jpg,<your path>/pytorch-AdaIN/input/style/774525357.jpg,<your path>/pytorch-AdaIN/input/style/991391645.jpg --style_interpolation_weights 1,1,1,1 --crop

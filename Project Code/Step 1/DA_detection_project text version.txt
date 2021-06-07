@@ -1,0 +1,44 @@
+import argparse
+import logging
+import os
+
+# Install conda and add channels to look for packages in
+import sys
+! wget https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
+! chmod +x Anaconda3-2020.02-Linux-x86_64.sh
+! bash ./Anaconda3-2020.02-Linux-x86_64.sh -b -f -p /usr/local
+sys.path.append('/usr/local/lib/python3.7/site-packages/')
+! conda update -n base -c defaults conda -y
+! conda config --add channels bioconda
+! conda config --add channels conda-forge
+! conda install pytorch torchvision torchaudio cudatoolkit=10.1 -c pytorch
+! conda install -c conda-forge yacs
+! conda install tqdm
+! pip install opencv-python==3.4.2.17
+! pip install opencv-contrib-python==3.4.2.17
+! pip install vizer
+! conda install tensorboardX
+
+
+!nvcc --version
+
+!nvidia-smi
+
+from google.colab import drive
+drive.mount('/content/gdrive')
+
+import torch
+
+# Change: ssd path
+%cd /content/gdrive/My\ Drive/Colab\ Notebooks/SSD-master
+
+###### Load model for finetuning ######
+## Uncomment this code to load model
+# original = torch.load('outputs/vgg_ssd300_voc0712/model_xxxxxx.pth')
+
+# new = {"model": original["model"]}
+# torch.save(new, 'outputs/vgg_ssd300_voc0712/model_000000.pth')
+######
+
+# Execution of ""
+!python train.py --config-file configs/vgg_ssd300_voc0712.yaml --save_step=2500 --eval_step=2500

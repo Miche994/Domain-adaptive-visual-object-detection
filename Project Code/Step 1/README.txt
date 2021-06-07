@@ -1,0 +1,1 @@
+NOTE: To do Step 1, SSD has been uploded on google Drive and executed using "DA_detection_project.ipynb" Google Colab file.

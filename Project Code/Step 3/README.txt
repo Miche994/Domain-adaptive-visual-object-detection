@@ -1,0 +1,2 @@
+###### NOTE: For simplicity, CycleGAN database folder name is changed to "VOC2007" and included into the database folder to finetune SSD. ######
+###### NOTE: For simplicity, Clipart1k database folder name is changed to "VOC2007" and included into the database folder to test SSD. ######

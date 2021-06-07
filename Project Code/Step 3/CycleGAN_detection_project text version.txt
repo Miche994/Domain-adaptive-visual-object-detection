@@ -1,0 +1,57 @@
+###### First of all, the environment is created to run the ssd code uploaded on google drive. ######
+
+import argparse
+import logging
+import os
+
+# !pip3 install 'torch==1.7.1'
+# !pip3 install 'torchvision==0.8.2'
+# !pip3 install 'tqdm'
+# !pip3 install 'viser'
+# !pip3 install 'yacs'
+# !pip3 install 'cfg'
+
+# Install conda and add channels to look for packages in
+import sys
+! wget https://repo.anaconda.com/archive/Anaconda3-2020.02-Linux-x86_64.sh
+! chmod +x Anaconda3-2020.02-Linux-x86_64.sh
+! bash ./Anaconda3-2020.02-Linux-x86_64.sh -b -f -p /usr/local
+sys.path.append('/usr/local/lib/python3.7/site-packages/')
+! conda update -n base -c defaults conda -y
+! conda config --add channels bioconda
+! conda config --add channels conda-forge
+! conda install pytorch torchvision torchaudio cudatoolkit=10.1 -c pytorch
+!pip install dominate #>=2.4.0
+!pip install visdom #>=0.1.8.8
+
+
+
+###### The CycleGAN train code loaded on google drive is executed. ######
+
+!nvcc --version
+
+!nvidia-smi
+
+# !cd '/content/gdrive/My\ Drive/Colab\ Notebooks/SSD-master'
+from google.colab import drive
+drive.mount('/content/gdrive')
+
+#!python -m visdom.server
+
+%cd /content/gdrive/My\ Drive/Colab\ Notebooks/pytorch-CycleGAN-and-pix2pix-master
+!python train.py --dataroot ./datasets/VOC2CLIPART --name VOC2CLIPART --model cycle_gan #--continue_train --epoch_count 15
+
+
+###### The CycleGAN test code loaded on google drive is executed. ######
+
+!nvcc --version
+
+!nvidia-smi
+
+from google.colab import drive
+drive.mount('/content/gdrive')
+
+%cd /content/gdrive/My\ Drive/Colab\ Notebooks/pytorch-CycleGAN-and-pix2pix-master
+
+%cp ./checkpoints/VOC2CLIPART/latest_net_G_A.pth ./checkpoints/VOC2CLIPART/latest_net_G.pth
+!python test.py --dataroot ./datasets/VOC2CLIPART --name VOC2CLIPART --model test --no_dropout
